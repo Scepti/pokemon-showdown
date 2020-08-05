@@ -56,8 +56,8 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 	},
 	vsemocny: {
 		num: 1005,
-		name: "Cepeljed",
-		types: ["Bug","Steel"],
+		name: "Vsemocny",
+		types: ["Poison","Steel"],
 		genderRatio: {M: 0.5, F: 0.5},
 		baseStats: {hp: 90, atk: 65, def: 80, spa: 125, spd: 90, spe: 100},
 		abilities: {0: "Competitive"},
