@@ -1,4 +1,70 @@
 export const FormatsData: {[k: string]: SpeciesFormatsData} = {
+	lucinnow: {
+		tier: "OU",
+	},
+	poziaelek: {
+		tier: "OU",
+	},
+	priopunc: {
+		tier: "OU",
+	},
+	cepeljed: {
+		tier: "OU",
+	},
+	vilaliek: {
+		tier: "OU",
+	},
+	vsemocny: {
+		tier: "OU",
+	},
+	yampercrowned: {
+		tier: "OU",
+	},
+	pyranian: {
+		tier: "OU",
+	},
+	polanis: {
+		tier: "OU",
+	},
+	floreola: {
+		tier: "OU",
+	},
+	calamini: {
+		tier: "OU",
+	},
+	abyssoot: {
+		tier: "OU",
+	},
+	atomlet: {
+		tier: "OU",
+	},
+	toxikoi: {
+		tier: "OU",
+	},
+	digarae: {
+		tier: "OU",
+	},
+	glycrosis: {
+		tier: "OU",
+	},
+	kogetixie: {
+		tier: "OU",
+	},
+	sekinamikan: {
+		tier: "OU",
+	},
+	dradoku: {
+		tier: "OU",
+	},
+	Drasopter: {
+		tier: "OU",
+	},
+	sidducczap: {
+		tier: "OU",
+	},
+	sidduccflame: {
+		tier: "OU",
+	},
 	bulbasaur: {
 		tier: "LC",
 	},
