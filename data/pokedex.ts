@@ -208,9 +208,9 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		weightkg: 50.0,
 		color: "Black",
 	},
-	Drasopter: {
+	drasopter: {
 		num: 1019,
-		name: "drasopter",
+		name: "Drasopter",
 		types: ["Bug","Dragon"],
 		genderRatio: {M: 0.5, F: 0.5},
 		baseStats: {hp: 70, atk: 80, def: 65, spa: 90, spd: 80, spe: 125},
@@ -218,6 +218,17 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		heightm: 1.5,
 		weightkg: 50.0,
 		color: "Green",
+	},
+	blazenku: {
+		num: 1021,
+		name: "Blazenku",
+		types: ["Fire","Steel"],
+		genderRatio: {M: 0.5, F: 0.5},
+		baseStats: {hp: 100, atk: 50, def: 91, spa: 92, spd: 100, spe: 85},
+		abilities: {0: "Levitate"},
+		heightm: 1.5,
+		weightkg: 50.0,
+		color: "Red",
 	},
 	sidducczap: {
 		num: 1020,
