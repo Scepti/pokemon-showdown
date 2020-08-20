@@ -15733,7 +15733,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		name: "Dracovish",
 		types: ["Water", "Dragon"],
 		gender: "N",
-		baseStats: {hp: 90, atk: 90, def: 100, spa: 70, spd: 80, spe: 75},
+		baseStats: {hp: 180, atk: 180, def: 200, spa: 140, spd: 160, spe: 150},
 		abilities: {0: "Water Absorb", 1: "Strong Jaw", H: "Sand Rush"},
 		heightm: 2.3,
 		weightkg: 215,
