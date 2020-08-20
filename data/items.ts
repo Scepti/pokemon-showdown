@@ -1,4 +1,55 @@
 export const Items: {[itemid: string]: ItemData} = {
+	everyberry: {
+		name: "Every Berry",
+		spritenum: 448,
+		isBerry: true,
+		naturalGift: {
+			basePower: 80,
+			type: "Psychic",
+		},
+		onUpdate(pokemon) {
+			if (pokemon.hp <= pokemon.maxhp / 2) {
+				pokemon.eatItem();
+			}
+		},
+		onTryEatItem(item, pokemon) {
+			if (!this.runEvent('TryHeal', pokemon)) return false;
+		},
+		onEat(pokemon) {
+			this.heal(pokemon.baseMaxhp / 4);
+			this.heal(pokemon.baseMaxhp / 3);
+			this.heal(pokemon.baseMaxhp / 3);
+			this.heal(pokemon.baseMaxhp / 3);
+			pokemon.cureStatus();
+			this.boost({spd: 1});
+			this.boost({def: 1});
+			this.boost({spd: 1});
+			this.boost({def: 1});
+			this.boost({atk: 1});
+			this.boost({spa: 1});
+			this.boost({spe: 1});
+			
+			const stats: BoostName[] = [];
+			let stat: BoostName;
+			for (stat in pokemon.boosts) {
+				if (stat !== 'accuracy' && stat !== 'evasion' && pokemon.boosts[stat] < 6) {
+					stats.push(stat);
+				}
+			}
+			if (stats.length) {
+				const randomStat = this.sample(stats);
+				const boost: SparseBoostsTable = {};
+				boost[randomStat] = 2;
+				this.boost(boost);
+			}
+			
+			pokemon.addVolatile('focusenergy');
+			pokemon.addVolatile('micleberry');
+		},
+		num: 158,
+		gen: 3,
+		desc: "Every Berry",
+	},
 	abomasite: {
 		name: "Abomasite",
 		spritenum: 575,
