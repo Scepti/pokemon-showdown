@@ -43,7 +43,6 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			this.boost({spd: 1}, pokemon);
 			this.boost({spe: 1}, pokemon);
 		},
-		},
 		onEnd(pokemon) {
 			delete pokemon.volatiles['blazingstart'];
 			this.add('-end', pokemon, 'Blazing Start', '[silent]');
