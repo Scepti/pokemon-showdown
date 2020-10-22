@@ -1,4 +1,27 @@
 export const Items: {[itemid: string]: ItemData} = {
+	titanshand: {
+		name: "Titan's Hand",
+		spritenum: 444,
+		fling: {
+			basePower: 150,
+		},
+		onBasePowerPriority: 15,
+		onBasePower(basePower, user, target, move) {
+			if (move.type === 'Normal') {
+				return this.chainModify([0x1333, 0x1000]);
+			}
+		},
+		onFractionalPriorityPriority: -2,
+		onFractionalPriority(priority, pokemon) {
+			if (priority <= 0 && this.randomChance(1, 3)) {
+				this.add('-activate', pokemon, 'item: Quick Claw');
+				return 0.1;
+			}
+		},
+		num: 251,
+		gen: 8,
+		desc: "Holder's Normal-type attacks have 1.2x power.",
+	},	
 	everyberry: {
 		name: "Every Berry",
 		spritenum: 448,
