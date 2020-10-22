@@ -33,6 +33,58 @@ Ratings and how they work:
 */
 
 export const Abilities: {[abilityid: string]: AbilityData} = {
+	equilibrium: {
+		shortDesc: "The True Dragon's power awakens.",
+		onStart(pokemon) {
+			this.boost({atk: 1}, pokemon);
+			this.boost({def: 1}, pokemon);
+			this.boost({spa: 1}, pokemon);
+			this.boost({spd: 1}, pokemon);
+			this.boost({spe: 1}, pokemon);
+		},
+		onPreStart(pokemon) {
+			this.add('-ability', pokemon, 'Equilibrium');
+			pokemon.abilityData.ending = false;
+		},
+		onAfterSetStatus(status, target, source, effect) {
+			if (!source || source === target) return;
+			if (effect && effect.id === 'toxicspikes') return;
+			this.add('-activate', target, 'ability: Equilibrium');
+			source.trySetStatus(status, target, {status: status.id, id: 'synchronize'});
+			pokemon.cureStatus();
+		},
+		onModifyAtk(atk, attacker, defender, move) {
+			if (move.type === 'Electric' || move.type === 'Ice') {
+				this.debug('Equilibrium boost');
+				return this.chainModify(1.5);
+			}
+		},
+		onModifySpAPriority: 5,
+		onModifySpA(atk, attacker, defender, move) {
+			if (move.type === 'Fire' || move.type === 'Ice') {
+				this.debug('Equilibrium boost');
+				return this.chainModify(1.5);
+			}
+		},
+		onEnd(source) {
+			// FIXME this happens before the pokemon switches out, should be the opposite order.
+			// Not an easy fix since we cant use a supported event. Would need some kind of special event that
+			// gathers events to run after the switch and then runs them when the ability is no longer accessible.
+			// (If your tackling this, do note extreme weathers have the same issue)
+
+			// Mark this pokemon's ability as ending so Pokemon#ignoringAbility skips it
+			source.abilityData.ending = true;
+			for (const pokemon of this.getAllActive()) {
+				if (pokemon !== source) {
+					// Will be suppressed by Pokemon#ignoringAbility if needed
+					this.singleEvent('Start', pokemon.getAbility(), pokemon.abilityData, pokemon);
+				}
+			}
+		},
+		name: "Equilibrium",
+		rating: 5,
+		num: 112,
+	},
 	blazingstart: {
 		shortDesc: "On switch-in, this Pokemon's Attack and Speed are doubled for 5 turns.",
 		onStart(pokemon) {
