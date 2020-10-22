@@ -8631,6 +8631,18 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		color: "White",
 		eggGroups: ["Undiscovered"],
 	},
+	regicient: {
+		num: 999,
+		name: "Regicient",
+		types: ["Normal"],
+		gender: "N",
+		baseStats: {hp: 170, atk: 160, def: 110, spa: 160, spd: 110, spe: 50},
+		abilities: {0: "Blazing Start"},
+		heightm: 3.7,
+		weightkg: 420,
+		color: "White",
+		eggGroups: ["Undiscovered"],
+	},
 	giratina: {
 		num: 487,
 		name: "Giratina",
