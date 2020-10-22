@@ -27,6 +27,25 @@ sound: Has no effect on Pokemon with the Soundproof Ability.
 */
 
 export const Moves: {[moveid: string]: MoveData} = {
+	gigatonhammer: {
+		num: 416,
+		accuracy: 100,
+		basePower: 120,
+		category: "Physical",
+		desc: "This move always deals neutral damage",
+		shortDesc: "User cannot move next turn.",
+		name: "Gigaton Hammer",
+		pp: 5,
+		priority: 0,
+		flags: {contact: 1, recharge: 1, protect: 1, mirror: 1},
+		onEffectiveness(typeMod, target, type) {
+			if (type !== 'Ghost') return 0;
+		},
+		secondary: null,
+		target: "normal",
+		type: "Normal",
+		contestType: "Tough",
+	},
 	"10000000voltthunderbolt": {
 		num: 719,
 		accuracy: true,
