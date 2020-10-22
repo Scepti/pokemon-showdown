@@ -33,6 +33,41 @@ Ratings and how they work:
 */
 
 export const Abilities: {[abilityid: string]: AbilityData} = {
+	blazingstart: {
+		shortDesc: "On switch-in, this Pokemon's Attack and Speed are doubled for 5 turns.",
+		onStart(pokemon) {
+			pokemon.addVolatile('blazingstart');
+			this.boost({atk: 1}, pokemon);
+			this.boost({def: 1}, pokemon);
+			this.boost({spa: 1}, pokemon);
+			this.boost({spd: 1}, pokemon);
+			this.boost({spe: 1}, pokemon);
+		},
+		},
+		onEnd(pokemon) {
+			delete pokemon.volatiles['blazingstart'];
+			this.add('-end', pokemon, 'Blazing Start', '[silent]');
+		},
+		condition: {
+			duration: 5,
+			onStart(target) {
+				this.add('-start', target, 'ability: Blazing Start');
+			},
+			onModifyAtkPriority: 5,
+			onModifyAtk(atk, pokemon) {
+				return this.chainModify(2);
+			},
+			onModifySpe(spe, pokemon) {
+				return this.chainModify(2);
+			},
+			onEnd(target) {
+				this.add('-end', target, 'Blazing Start');
+			},
+		},
+		name: "Blazing Start",
+		rating: 5,
+		num: 112,
+	},
 	noability: {
 		shortDesc: "Does nothing.",
 		isNonstandard: "Past",
