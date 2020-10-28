@@ -27,6 +27,38 @@ sound: Has no effect on Pokemon with the Soundproof Ability.
 */
 
 export const Moves: {[moveid: string]: MoveData} = {
+	hororablearena: {
+		num: 802,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "For 5 turns, pivotting moves will fail.",
+		shortDesc: "For 5 turns, pivotting moves will fail.",
+		name: "Honorable Arena",
+		pp: 10,
+		priority: 0,
+		flags: {mirror: 1},
+		pseudoWeather: 'honorroom',
+		condition: {
+			duration: 5,
+			onStart(target, source) {
+				this.add('-fieldstart', 'move: Honorable Arena', '[of] ' + source);
+			},
+			onRestart(target, source) {
+				this.field.removePseudoWeather('honorroom');
+			},
+			// Item suppression implemented in Pokemon.ignoringItem() within sim/pokemon.js
+			onResidualOrder: 25,
+			onEnd() {
+				this.add('-fieldend', 'move: Honorable Arena', '[of] ' + this.effectData.source);
+			},
+		},
+		secondary: null,
+		target: "all",
+		type: "Psychic",
+		zMove: {boost: {spd: 1}},
+		contestType: "Clever",
+	},
 	infiniteenergypulse: {
 		num: 801,
 		accuracy: 100,
