@@ -88,7 +88,6 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 5,
 		num: 801,
 	},
-	},
 	equilibrium: {
 		shortDesc: "The True Dragon's power awakens.",
 		onStart(pokemon) {
