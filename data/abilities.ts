@@ -61,7 +61,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 				move.multihit = 2;
 			}
 		},
-		onUpdate(pokemon) {
+		onPrepareHit(pokemon) {
 			if (pokemon.baseSpecies.baseSpecies !== 'Castform' || pokemon.transformed) return;
 			let forme = null;
 			switch (pokemon.effectiveWeather()) {
