@@ -55,8 +55,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			if (type == 'Ice') {
 				this.field.setWeather('hail');
 				}
-		//},
-		//onUpdate(pokemon) {
+		},
+		onUpdate(pokemon) {
+			if (pokemon.baseSpecies.baseSpecies !== 'Castform' || pokemon.transformed) return;
 			let forme = null;
 			switch (pokemon.effectiveWeather()) {
 			case 'sunnyday':
