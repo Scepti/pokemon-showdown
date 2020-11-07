@@ -57,7 +57,6 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 				}
 		//},
 		//onUpdate(pokemon) {
-			if (pokemon.baseSpecies.baseSpecies !== 'Castform' || pokemon.transformed) return;
 			let forme = null;
 			switch (pokemon.effectiveWeather()) {
 			case 'sunnyday':
