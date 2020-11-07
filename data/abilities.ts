@@ -43,7 +43,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			this.boost({spe: 2}, pokemon);
 			this.field.setTerrain('mistyterrain');
 		},
-		onModifyMove(source, target, move, pokemon) {
+		onBeforeMove(source, target, move, pokemon) {
 			if (move.hasBounced) return;
 			const type = move.type;
 			if (type == 'Grass' || type == 'Fire') {
@@ -55,8 +55,8 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			if (type == 'Ice') {
 				this.field.setWeather('hail');
 				}
-		},
-		onUpdate(pokemon) {
+		//},
+		//onUpdate(pokemon) {
 			if (pokemon.baseSpecies.baseSpecies !== 'Castform' || pokemon.transformed) return;
 			let forme = null;
 			switch (pokemon.effectiveWeather()) {
