@@ -33,6 +33,62 @@ Ratings and how they work:
 */
 
 export const Abilities: {[abilityid: string]: AbilityData} = {
+	tempestshearld: {
+		shortDesc: "This Pokemon has total control of the wind and sky",
+		onStart(pokemon) {
+			this.boost({atk: 2}, pokemon);
+			this.boost({def: 2}, pokemon);
+			this.boost({spa: 2}, pokemon);
+			this.boost({spd: 2}, pokemon);
+			this.boost({spe: 2}, pokemon);
+			this.field.setTerrain('mistyterrain');
+		},
+		onPrepareHit(source, target, move) {
+			if (move.hasBounced) return;
+			const type = move.type;
+			if (type == 'Grass' || type == 'Fire') {
+				this.field.setWeather('sunnyday');
+			}
+			if (type == 'Water' || type == 'Flying' || type == 'Electric') {
+				this.field.setWeather('raindance');
+			}
+			if (type == 'Ice') {
+				this.field.setWeather('hail');
+			}
+		},
+		onModifyMove(move, attacker) {
+			if (move.id === 'weatherball') {
+				move.multihit = 2;
+			}
+		},
+		onUpdate(pokemon) {
+			if (pokemon.baseSpecies.baseSpecies !== 'Castform' || pokemon.transformed) return;
+			let forme = null;
+			switch (pokemon.effectiveWeather()) {
+			case 'sunnyday':
+			case 'desolateland':
+				if (pokemon.species.id !== 'castformsunny') forme = 'Castform-Sunny';
+				break;
+			case 'raindance':
+			case 'primordialsea':
+				if (pokemon.species.id !== 'castformrainy') forme = 'Castform-Rainy';
+				break;
+			case 'hail':
+				if (pokemon.species.id !== 'castformsnowy') forme = 'Castform-Snowy';
+				break;
+			default:
+				if (pokemon.species.id !== 'castform') forme = 'Castform';
+				break;
+			}
+			if (pokemon.isActive && forme) {
+				pokemon.formeChange(forme, this.effect, false, '[msg]');
+			}
+		},
+		name: "Tempest's Hearld",
+		rating: 5,
+		num: 801,
+	},
+	},
 	equilibrium: {
 		shortDesc: "The True Dragon's power awakens.",
 		onStart(pokemon) {
