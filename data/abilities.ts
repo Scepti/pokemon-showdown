@@ -55,13 +55,6 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			if (type == 'Ice') {
 				this.field.setWeather('hail');
 			}
-		},
-		onModifyMove(move, attacker) {
-			if (move.id === 'weatherball') {
-				move.multihit = 2;
-			}
-		},
-		onPrepareHit(pokemon) {
 			if (pokemon.baseSpecies.baseSpecies !== 'Castform' || pokemon.transformed) return;
 			let forme = null;
 			switch (pokemon.effectiveWeather()) {
@@ -82,6 +75,11 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			}
 			if (pokemon.isActive && forme) {
 				pokemon.formeChange(forme, this.effect, false, '[msg]');
+			}
+		},
+		onModifyMove(move, attacker) {
+			if (move.id === 'weatherball') {
+				move.multihit = 2;
 			}
 		},
 		name: "Tempest's Hearld",
