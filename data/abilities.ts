@@ -43,7 +43,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			this.boost({spe: 2}, pokemon);
 			this.field.setTerrain('mistyterrain');
 		},
-		onPrepareHit(source, target, move) {
+		onPrepareHit(source, target, move, pokemon) {
 			if (move.hasBounced) return;
 			const type = move.type;
 			if (type == 'Grass' || type == 'Fire') {
