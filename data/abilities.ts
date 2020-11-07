@@ -33,7 +33,7 @@ Ratings and how they work:
 */
 
 export const Abilities: {[abilityid: string]: AbilityData} = {
-	tempestshearld: {
+	tempestsherald: {
 		shortDesc: "This Pokemon has total control of the wind and sky",
 		onStart(pokemon) {
 			this.boost({atk: 2}, pokemon);
@@ -84,7 +84,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 				move.multihit = 2;
 			}
 		},
-		name: "Tempest's Hearld",
+		name: "Tempest's Herald",
 		rating: 5,
 		num: 801,
 	},
