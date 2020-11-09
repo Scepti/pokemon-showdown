@@ -74425,6 +74425,7 @@ export const Learnsets: {[speciesid: string]: LearnsetData} = {
 	},
 	snom: {
 		learnset: {
+			nuzzle: ["8E"],
 			attract: ["8M"],
 			bugbite: ["8E"],
 			bugbuzz: ["8M"],
