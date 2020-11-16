@@ -9909,11 +9909,30 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		onModifyType(move, pokemon) {
+			if (pokemon.hasAbility('pixilate')) {
+				move.type = 'Fairy';
+				move.ateBoosted = true;
+			}
+			if (pokemon.hasAbility('aerilate')) {
+				move.type = 'Flying';
+				move.ateBoosted = true;
+			}
+			if (pokemon.hasAbility('galvanize')) {
+				move.type = 'Electric';
+				move.ateBoosted = true;
+			}
+			if (pokemon.hasAbility('refrigerate')) {
+				move.type = 'Ice';
+				move.ateBoosted = true;
+			}
 			if (pokemon.ignoringItem()) return;
 			const item = pokemon.getItem();
 			if (item.id && item.onPlate && !item.zMove) {
 				move.type = item.onPlate;
 			}
+		},
+		onBasePower(basePower, pokemon, target, move) {
+			if (move.ateBoosted) return this.chainModify([0x1333, 0x1000]);
 		},
 		secondary: null,
 		target: "normal",
