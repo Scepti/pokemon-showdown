@@ -19801,70 +19801,88 @@ export const Moves: {[moveid: string]: MoveData} = {
 		zMove: {boost: {def: 1}},
 		contestType: "Clever",
 	},
+	corrosivespikes: {
+		num: 390,
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		name: "Corrosive Spikes",
+		pp: 20,
+		priority: 0,
+		flags: {reflectable: 1, nonsky: 1},
+		onTry(pokemon) {
+			if (pokemon.hasAbility('corrosion')) {) {
+				return;
+			}
+			this.hint("Only a Pokemon who has the ability Corrosion can use this move.");
+			this.add('-fail', pokemon, 'move: Corrosive Spikes');
+			return null;
+		},
+		sideCondition: 'corrosivespikes',
+		condition: {
+			// this is a side condition
+			onStart(side) {
+				this.add('-sidestart', side, 'move: Corrosive Spikes');
+				this.effectData.layers = 1;
+			},
+			onRestart(side) {
+				if (this.effectData.layers >= 2) return false;
+				this.add('-sidestart', side, 'move: Corrosive Spikes');
+				this.effectData.layers++;
+			},
+			onSwitchIn(pokemon) {
+				if (!pokemon.isGrounded()) return;
+				if (pokemon.hasType('Poison')) {
+					this.add('-sideend', pokemon.side, 'move: Toxic Spikes', '[of] ' + pokemon);
+					pokemon.side.removeSideCondition('toxicspikes');
+				} else if (pokemon.hasItem('heavydutyboots')) {
+					return;
+				} else if (this.effectData.layers >= 2) {
+					pokemon.trySetStatus('tox', pokemon.side.foe.active[0]);
+				} else {
+					pokemon.trySetStatus('psn', pokemon.side.foe.active[0]);
+				}
+			},
+		},
+		secondary: null,
+		target: "foeSide",
+		type: "Poison",
+		zMove: {boost: {def: 1}},
+		contestType: "Clever",
+	},
 	toxicspikes: {
 		num: 390,
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "Sets up a hazard on the opposing side of the field, poisoning each opposing Pokemon that switches in, unless it is a Flying-type Pokemon or has the Levitate Ability. Can be used up to two times before failing. Opposing Pokemon become poisoned with one layer and badly poisoned with two layers. Can be removed from the opposing side if any opposing Pokemon uses Rapid Spin or Defog successfully, is hit by Defog, or a grounded Poison-type Pokemon switches in. Safeguard prevents the opposing party from being poisoned on switch-in, but a substitute does not.",
-		shortDesc: "Poisons grounded foes on switch-in. Max 2 layers.",
 		name: "Toxic Spikes",
 		pp: 20,
 		priority: 0,
 		flags: {reflectable: 1, nonsky: 1},
-		beforeMoveCallback(pokemon) {
-			if (pokemon.hasAbility('corrosion')) {
-				sideCondition: 'corrosivespikes';
-				condition: {
-					// this is a side condition
-					onStart(side) {
-						this.add('-sidestart', side, 'move: Toxic Spikes');
-						this.effectData.layers = 1;
-					},
-					onRestart(side) {
-						if (this.effectData.layers >= 2) return false;
-						this.add('-sidestart', side, 'move: Toxic Spikes');
-						this.effectData.layers++;
-					},
-					onSwitchIn(pokemon) {
-						if (!pokemon.isGrounded()) return;
-						if (pokemon.hasType('Poison')) {
-							this.add('-sideend', pokemon.side, 'move: Toxic Spikes', '[of] ' + pokemon);
-							pokemon.side.removeSideCondition('toxicspikes');
-						} else if (pokemon.hasItem('heavydutyboots') {
-							return;
-						} else if (this.effectData.layers >= 2) {
-							pokemon.trySetStatus('tox', pokemon.side.foe.active[0]);
-						} else {
-							pokemon.trySetStatus('psn', pokemon.side.foe.active[0]);
-						}
-					},
-			}	else {
-				sideCondition: 'toxicspikes';
-				condition: {
-					// this is a side condition
-					onStart(side) {
-						this.add('-sidestart', side, 'move: Toxic Spikes');
-						this.effectData.layers = 1;
-					},
-					onRestart(side) {
-						if (this.effectData.layers >= 2) return false;
-						this.add('-sidestart', side, 'move: Toxic Spikes');
-						this.effectData.layers++;
-					},
-					onSwitchIn(pokemon) {
-						if (!pokemon.isGrounded()) return;
-						if (pokemon.hasType('Poison')) {
-							this.add('-sideend', pokemon.side, 'move: Toxic Spikes', '[of] ' + pokemon);
-							pokemon.side.removeSideCondition('toxicspikes');
-						} else if (pokemon.hasType('Steel') || pokemon.hasItem('heavydutyboots')) {
-							return;
-						} else if (this.effectData.layers >= 2) {
-							pokemon.trySetStatus('tox', pokemon.side.foe.active[0]);
-						} else {
-							pokemon.trySetStatus('psn', pokemon.side.foe.active[0]);
-						}
-					},
+		sideCondition: 'toxicspikes',
+		condition: {
+			// this is a side condition
+			onStart(side) {
+				this.add('-sidestart', side, 'move: Toxic Spikes');
+				this.effectData.layers = 1;
+			},
+			onRestart(side) {
+				if (this.effectData.layers >= 2) return false;
+				this.add('-sidestart', side, 'move: Toxic Spikes');
+				this.effectData.layers++;
+			},
+			onSwitchIn(pokemon) {
+				if (!pokemon.isGrounded()) return;
+				if (pokemon.hasType('Poison')) {
+					this.add('-sideend', pokemon.side, 'move: Toxic Spikes', '[of] ' + pokemon);
+					pokemon.side.removeSideCondition('toxicspikes');
+				} else if (pokemon.hasType('Steel') || pokemon.hasItem('heavydutyboots')) {
+					return;
+				} else if (this.effectData.layers >= 2) {
+					pokemon.trySetStatus('tox', pokemon.side.foe.active[0]);
+				} else {
+					pokemon.trySetStatus('psn', pokemon.side.foe.active[0]);
+				}
 			},
 		},
 		secondary: null,
