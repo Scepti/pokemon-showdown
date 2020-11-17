@@ -19811,7 +19811,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {reflectable: 1, nonsky: 1},
 		onTry(pokemon) {
-			if (pokemon.hasAbility('corrosion')) {) {
+			if (pokemon.hasAbility('corrosion')) {
 				return;
 			}
 			this.hint("Only a Pokemon who has the ability Corrosion can use this move.");
