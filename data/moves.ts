@@ -19814,7 +19814,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 		flags: {reflectable: 1, nonsky: 1},
 		beforeMoveCallback(pokemon) {
 			if (pokemon.hasAbility('corrosion')) {
-				this.add('-activate', source, 'ability: Corrosion', effect);
 				sideCondition: 'corrosivespikes',
 				condition: {
 					// this is a side condition
