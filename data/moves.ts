@@ -19814,7 +19814,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		flags: {reflectable: 1, nonsky: 1},
 		beforeMoveCallback(pokemon) {
 			if (pokemon.hasAbility('corrosion')) {
-				sideCondition: 'corrosivespikes',
+				sideCondition: 'corrosivespikes';
 				condition: {
 					// this is a side condition
 					onStart(side) {
@@ -19840,7 +19840,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 						}
 					},
 			}	else {
-				sideCondition: 'toxicspikes',
+				sideCondition: 'toxicspikes';
 				condition: {
 					// this is a side condition
 					onStart(side) {
