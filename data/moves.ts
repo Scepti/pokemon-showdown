@@ -19812,31 +19812,60 @@ export const Moves: {[moveid: string]: MoveData} = {
 		pp: 20,
 		priority: 0,
 		flags: {reflectable: 1, nonsky: 1},
-		sideCondition: 'toxicspikes',
-		condition: {
-			// this is a side condition
-			onStart(side) {
-				this.add('-sidestart', side, 'move: Toxic Spikes');
-				this.effectData.layers = 1;
-			},
-			onRestart(side) {
-				if (this.effectData.layers >= 2) return false;
-				this.add('-sidestart', side, 'move: Toxic Spikes');
-				this.effectData.layers++;
-			},
-			onSwitchIn(pokemon) {
-				if (!pokemon.isGrounded()) return;
-				if (pokemon.hasType('Poison')) {
-					this.add('-sideend', pokemon.side, 'move: Toxic Spikes', '[of] ' + pokemon);
-					pokemon.side.removeSideCondition('toxicspikes');
-				} else if (pokemon.hasType('Steel') || pokemon.hasItem('heavydutyboots')) {
-					return;
-				} else if (this.effectData.layers >= 2) {
-					pokemon.trySetStatus('tox', pokemon.side.foe.active[0]);
-				} else {
-					pokemon.trySetStatus('psn', pokemon.side.foe.active[0]);
-				}
-			},
+		if (source?.hasAbility('corrosion')) {
+			this.add('-activate', source, 'ability: Corrosion', effect);
+			sideCondition: 'corrosivespikes',
+			condition: {
+				// this is a side condition
+				onStart(side) {
+					this.add('-sidestart', side, 'move: Toxic Spikes');
+					this.effectData.layers = 1;
+				},
+				onRestart(side) {
+					if (this.effectData.layers >= 2) return false;
+					this.add('-sidestart', side, 'move: Toxic Spikes');
+					this.effectData.layers++;
+				},
+				onSwitchIn(pokemon) {
+					if (!pokemon.isGrounded()) return;
+					if (pokemon.hasType('Poison')) {
+						this.add('-sideend', pokemon.side, 'move: Toxic Spikes', '[of] ' + pokemon);
+						pokemon.side.removeSideCondition('toxicspikes');
+					} else if (pokemon.hasItem('heavydutyboots') {
+						return;
+					} else if (this.effectData.layers >= 2) {
+						pokemon.trySetStatus('tox', pokemon.side.foe.active[0]);
+					} else {
+						pokemon.trySetStatus('psn', pokemon.side.foe.active[0]);
+					}
+				},
+		}	else {
+			sideCondition: 'toxicspikes',
+			condition: {
+				// this is a side condition
+				onStart(side) {
+					this.add('-sidestart', side, 'move: Toxic Spikes');
+					this.effectData.layers = 1;
+				},
+				onRestart(side) {
+					if (this.effectData.layers >= 2) return false;
+					this.add('-sidestart', side, 'move: Toxic Spikes');
+					this.effectData.layers++;
+				},
+				onSwitchIn(pokemon) {
+					if (!pokemon.isGrounded()) return;
+					if (pokemon.hasType('Poison')) {
+						this.add('-sideend', pokemon.side, 'move: Toxic Spikes', '[of] ' + pokemon);
+						pokemon.side.removeSideCondition('toxicspikes');
+					} else if (pokemon.hasType('Steel') || pokemon.hasItem('heavydutyboots')) {
+						return;
+					} else if (this.effectData.layers >= 2) {
+						pokemon.trySetStatus('tox', pokemon.side.foe.active[0]);
+					} else {
+						pokemon.trySetStatus('psn', pokemon.side.foe.active[0]);
+					}
+				},
+		}
 		},
 		secondary: null,
 		target: "foeSide",
