@@ -19865,7 +19865,6 @@ export const Moves: {[moveid: string]: MoveData} = {
 						pokemon.trySetStatus('psn', pokemon.side.foe.active[0]);
 					}
 				},
-		}
 		},
 		secondary: null,
 		target: "foeSide",
